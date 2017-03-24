@@ -1,0 +1,74 @@
+Index: rtl/inc/objpas.inc
+===================================================================
+--- rtl/inc/objpas.inc	(revision 35639)
++++ rtl/inc/objpas.inc	(working copy)
+@@ -286,6 +286,39 @@
+ 
+ 
+ {****************************************************************************
++                              TGUID
++****************************************************************************}
++
++
++    function IsGUIDEqual(const guid1, guid2: tguid): boolean;
++      begin
++        IsGUIDEqual:=
++          (guid1.D1=guid2.D1) and
++          (PDWORD(@guid1.D2)^=PDWORD(@guid2.D2)^) and
++          (PDWORD(@guid1.D4[0])^=PDWORD(@guid2.D4[0])^) and
++          (PDWORD(@guid1.D4[4])^=PDWORD(@guid2.D4[4])^);
++      end;
++
++
++    class operator TGuid.= (const guid1, guid2 : TGuid) : Boolean;
++      begin
++        result:=IsGUIDEqual(guid1,guid2);
++      end;
++
++
++    class operator TGuid.<> (const guid1, guid2 : TGuid) : Boolean;
++      begin
++        result:=not IsGUIDEqual(guid1,guid2);
++      end;
++
++
++    class function TGuid.Empty: TGuid;
++      begin
++        fillchar(result,SizeOf(result),0);
++      end;
++
++
++{****************************************************************************
+                            TINTERFACEENTRY
+ ****************************************************************************}
+ 
+@@ -757,15 +790,6 @@
+         begin
+         end;
+ 
+-      function IsGUIDEqual(const guid1, guid2: tguid): boolean;
+-        begin
+-          IsGUIDEqual:=
+-            (guid1.D1=guid2.D1) and
+-            (PDWORD(@guid1.D2)^=PDWORD(@guid2.D2)^) and
+-            (PDWORD(@guid1.D4[0])^=PDWORD(@guid2.D4[0])^) and
+-            (PDWORD(@guid1.D4[4])^=PDWORD(@guid2.D4[4])^);
+-        end;
+-
+       // Use of managed types should be avoided here; implicit _Addref/_Release
+       // will end up in unpredictable behaviour if called on CORBA interfaces.
+       type
+Index: rtl/inc/objpash.inc
+===================================================================
+--- rtl/inc/objpash.inc	(revision 35639)
++++ rtl/inc/objpash.inc	(working copy)
+@@ -132,6 +132,9 @@
+ 
+        PGuid = ^TGuid;
+        TGuid = packed record
++          class operator = (const guid1, guid2 : TGuid) : Boolean;{$ifdef SYSTEMINLINE}inline;{$endif}
++          class operator <> (const guid1, guid2 : TGuid) : Boolean;{$ifdef SYSTEMINLINE}inline;{$endif}
++          class function Empty: TGuid; static;
+           case integer of
+              1 : (
+                   Data1 : DWord;

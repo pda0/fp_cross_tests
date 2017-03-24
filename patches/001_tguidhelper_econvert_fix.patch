@@ -1,0 +1,53 @@
+Index: rtl/objpas/sysutils/syshelp.inc
+===================================================================
+--- rtl/objpas/sysutils/syshelp.inc	(revision 35611)
++++ rtl/objpas/sysutils/syshelp.inc	(working copy)
+@@ -25,13 +25,16 @@
+ 
+ class function TGUIDHelper.Create(const Data: array of Byte; AStartIndex: Cardinal; BigEndian: Boolean): TGUID; overload; static;
+ 
++Const
++  GUIDLen = 16;
++
+ Var
+   A : Cardinal;
+   B,C : Word;
+ 
+ begin
+-  if ((System.Length(Data)-AStartIndex)<16) then
+-    raise EArgumentException.CreateFmt('The length of a GUID array must be at least %d',[]);
++  if ((System.Length(Data)-AStartIndex)<GUIDLen) then
++    raise EArgumentException.CreateFmt('The length of a GUID array must be at least %d',[GUIDLen]);
+   Move(Data[AStartIndex],A,SizeOf(Cardinal));
+   Move(Data[AStartIndex+4],B,SizeOf(Word));
+   Move(Data[AStartIndex+6],C,SizeOf(Word));
+@@ -60,9 +63,12 @@
+ 
+ Class Function TGUIDHelper.Create(const B: TBytes; AStartIndex: Cardinal; DataEndian: TEndian = CPUEndian): TGUID; overload; static;
+ 
++Const
++  GUIDLen = 16;
++
+ begin
+-  if ((System.Length(B)-AStartIndex)<16) then
+-    raise EArgumentException.CreateFmt('The length of a GUID array must be at least %d',[]);
++  if ((System.Length(B)-AStartIndex)<GUIDLen) then
++    raise EArgumentException.CreateFmt('The length of a GUID array must be at least %d',[GUIDLen]);
+   Result:=Create(B,AStartIndex,DataEndian=TEndian.Big);
+ end;
+ 
+@@ -74,9 +80,12 @@
+ 
+ Class Function TGUIDHelper.Create(A: Integer; B: SmallInt; C: SmallInt; const D: TBytes): TGUID; overload; static;
+ 
++Const
++  GUIDTailLen = 8;
++
+ begin
+-  if (System.Length(D)<>8) then
+-    raise EArgumentException.CreateFmt('The length of a GUID array must be %d',[]);
++  if (System.Length(D)<>GUIDTailLen) then
++    raise EArgumentException.CreateFmt('The length of a GUID array must be %d',[GUIDTailLen]);
+   Result:=Create(Cardinal(A),Word(B),Word(C),D[0],D[1],D[2],D[3],D[4],D[5],D[6],D[7]);
+ end;
+ 

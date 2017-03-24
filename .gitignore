@@ -13,6 +13,8 @@
 *.dsk
 *.~dsk
 *.res
+__history
+__recovery
 */backup
 */*/backup
 */__history

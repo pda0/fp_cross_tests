@@ -39,15 +39,14 @@
         <PackageName Value="FCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="7">
       <Unit0>
         <Filename Value="fp_cross_tests.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="src\test.sysutils.tguidhelper.pas"/>
+        <Filename Value="src\Test.SysUtils.TGuidHelper.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Test.SysUtils.TGuidHelper"/>
       </Unit1>
       <Unit2>
         <Filename Value="includes\delphi.inc"/>
@@ -57,6 +56,18 @@
         <Filename Value="includes\fpc.inc"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="src\Test.SysUtils.TSingleHelper.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="src\Test.SysUtils.TDoubleHelper.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="src\Test.SysUtils.TExtendedHelper.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -87,9 +98,6 @@
     </Linking>
     <Other>
       <CustomOptions Value="-dCONSOLE_TESTRUNNER"/>
-      <OtherDefines Count="1">
-        <Define0 Value="CONSOLE_TESTRUNNER"/>
-      </OtherDefines>
     </Other>
   </CompilerOptions>
   <Debugging>

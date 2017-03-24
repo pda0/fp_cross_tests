@@ -1,0 +1,31 @@
+diff -Nuar orig/rtl/objpas/sysutils/syshelph.inc fix/rtl/objpas/sysutils/syshelph.inc
+--- rtl/objpas/sysutils/syshelph.inc	(revision 35639)
++++ rtl/objpas/sysutils/syshelph.inc	(working copy)
+@@ -17,6 +17,9 @@
+     Class Function Create(const B: TBytes; DataEndian: TEndian = CPUEndian): TGUID; overload; static; inline;
+     Class Function Create(const B: TBytes; AStartIndex: Cardinal; DataEndian: TEndian = CPUEndian): TGUID; overload; static;
+     Class Function Create(const S: string): TGUID; overload; static;
++    {$IFDEF FPC_HAS_FEATURE_UNICODESTRINGS}
++    Class Function Create(const S: UnicodeString): TGUID; overload; static;
++    {$ENDIF}
+     Class Function Create(A: Integer; B: SmallInt; C: SmallInt; const D: TBytes): TGUID; overload; static;
+     Class Function Create(A: Integer; B: SmallInt; C: SmallInt; D, E, F, G, H, I, J, K: Byte): TGUID; overload; static;
+     Class Function Create(A: Cardinal; B: Word; C: Word; D, E, F, G, H, I, J, K: Byte): TGUID; overload; static;
+diff -Nuar orig/rtl/objpas/sysutils/syshelp.inc fix/rtl/objpas/sysutils/syshelp.inc
+--- rtl/objpas/sysutils/syshelp.inc	(revision 35639)
++++ rtl/objpas/sysutils/syshelp.inc	(working copy)
+@@ -78,6 +78,14 @@
+   Result:=StringToGUID(S);
+ end;
+ 
++{$IFDEF FPC_HAS_FEATURE_UNICODESTRINGS}
++Class Function TGUIDHelper.Create(const S: UnicodeString): TGUID; overload; static;
++
++begin
++  Result:=StringToGUID(RawByteString(S));
++end;
++{$ENDIF}
++
+ Class Function TGUIDHelper.Create(A: Integer; B: SmallInt; C: SmallInt; const D: TBytes): TGUID; overload; static;
+ 
+ Const

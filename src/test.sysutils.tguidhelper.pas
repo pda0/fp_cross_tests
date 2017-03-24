@@ -1,4 +1,4 @@
-{**********************************************************************
+﻿{**********************************************************************
     Copyright(c) 2016 pda <pda2@yandex.ru>
 
     See the file COPYING.FPC, included in this distribution,
@@ -11,9 +11,9 @@
  **********************************************************************}
 unit Test.SysUtils.TGuidHelper;
 
-{$I delphi.inc}
+{$DEFINE TEST_UNIT}
+{$IFDEF FPC}{$I fpc.inc}{$ELSE}{$I delphi.inc}{$ENDIF}
 {$IFDEF DELPHI_XE4_PLUS}{$LEGACYIFEND ON}{$ENDIF}
-{$I fpc.inc}
 
 interface
 
@@ -22,7 +22,7 @@ uses
   fpcunit, testregistry,
   {$ELSE}
   TestFramework,
-  {$ENDIF FPC}
+  {$ENDIF}
   Classes, SysUtils, Types;
 
 {$IF DEFINED(FPC) OR DEFINED(DELPHI_XE2_PLUS)}
@@ -33,32 +33,33 @@ type
   private
     {$IFDEF FPC}
     procedure FailCreateStringA;
-    {$ENDIF FPC}
+    {$ENDIF}
     procedure FailCreateStringU;
-    procedure FailCreateBytesOffset;
+    procedure FailCreateTBytesOffset;
     procedure FailCreateABCD;
   published
     {$IFDEF FPC}
     procedure TestCreateStringA;
-    {$ENDIF FPC}
+    {$ENDIF}
     procedure TestCreateStringU;
+    {$IFNDEF FPC}
+    { Just ignore the old API. Unfortunately Free Pascal does not distinguish
+      between array of Byte, TBytes and TArray<Byte>.
+      See http://bugs.freepascal.org/view.php?id=31169 for more info. }
     procedure TestCreateDataBool;
     procedure TestCreateArrayOfByte;
+    {$ENDIF}
     procedure TestCreateData;
-    procedure TestCreateBytes;
-    procedure TestCreateBytesOffset;
+    procedure TestCreateTBytes;
+    procedure TestCreateTBytesOffset;
     procedure TestCreateABCD;
     procedure TestCreateAKSmallInt;
     procedure TestCreateAKWord;
-    {$IFNDEF FPC}
     procedure TestEmpty;
-    {$ENDIF !FPC}
     procedure TestNewGuid;
     procedure TestToByteArray;
     procedure TestToString;
-    {$IFNDEF FPC}
-    procedure TestEqual;  // Free Pascal still does not supported this.
-    {$ENDIF !FPC}
+    procedure TestEqual;
   end;
 {$IFEND}
 
@@ -66,17 +67,8 @@ implementation
 
 {$IF DEFINED(FPC) OR DEFINED(DELPHI_XE2_PLUS)}
 const
-//  TEST_GUID: TGUID = (
-//    D1: $00010203; D2: $0405; D3: $0607; D4:($08, $09, $0a, $0b, $0c, $0d, $0e, $0f)
-//  );
-//  TEST_GUID_GOOD: TGUID = (
-//    D1: $ec7e5bd7; D2: $3846; D3: $41e3; D4:($a6, $af, $12, $bb, $e7, $00, $8e, $03)
-//  );
   TEST_GUID: TGUID = '{00010203-0405-0607-0809-0A0B0C0D0E0F}';
   TEST_GUID_GOOD: TGUID = '{EC7E5BD7-3846-41E3-A6AF-12BBE7008E03}';
-  TEST_GUID_EMPTY: TGUID = (
-    D1: 0; D2: 0; D3: 0; D4:(0, 0, 0, 0, 0, 0, 0, 0)
-  );
   TEST_LONG_ARRAY: array [0..17] of Byte = (
     $fe, $ff, $00, $01, $02, $03, $04, $05, $06,
     $07, $08, $09, $0a, $0b, $0c, $0d, $0e, $0f
@@ -122,6 +114,7 @@ begin
   CheckException(FailCreateStringU, EConvertError);
 end;
 
+{$IFNDEF FPC}
 procedure TTestTGuidHelper.TestCreateDataBool;
 begin
   CheckTrue(IsEqualGUID(TEST_GUID_LONG_DIRECT, TGUID.Create(TEST_LONG_ARRAY, True)));
@@ -159,8 +152,9 @@ begin
     CheckEquals(ByteArray[i + 8], FGuid.D4[i]);
 
   SetLength(ByteArray, 0);
-  CheckTrue(IsEqualGUID(TEST_GUID_EMPTY, TGuid.Create(ByteArray, 0)));
+  CheckTrue(IsEqualGUID(GUID_NULL, TGuid.Create(ByteArray, 0)));
 end;
+{$ENDIF FPC}
 
 procedure TTestTGuidHelper.TestCreateData;
 begin
@@ -168,7 +162,7 @@ begin
   CheckTrue(IsEqualGUID(TEST_GUID_LONG_SWAPPED, TGUID.Create(TEST_LONG_ARRAY, TEndian.Little)));
 end;
 
-procedure TTestTGuidHelper.TestCreateBytes;
+procedure TTestTGuidHelper.TestCreateTBytes;
 var
   Bytes: TBytes;
   i: Integer;
@@ -181,7 +175,7 @@ begin
   CheckTrue(IsEqualGUID(TEST_GUID_LONG_SWAPPED, TGUID.Create(Bytes, TEndian.Little)));
 end;
 
-procedure TTestTGuidHelper.FailCreateBytesOffset;
+procedure TTestTGuidHelper.FailCreateTBytesOffset;
 var
   Bytes: TBytes;
 begin
@@ -189,7 +183,7 @@ begin
   FGuid := TGuid.Create(Bytes, 0);
 end;
 
-procedure TTestTGuidHelper.TestCreateBytesOffset;
+procedure TTestTGuidHelper.TestCreateTBytesOffset;
 const
   RES_1_D1: Cardinal = $00010203;
   RES_1_D2: Word = $0405;
@@ -219,7 +213,7 @@ begin
   for i := 0 to 7 do
     CheckEquals(Bytes[i + 8], FGuid.D4[i]);
 
-  CheckException(FailCreateBytesOffset, EArgumentException);
+  CheckException(FailCreateTBytesOffset, EArgumentException);
 end;
 
 {$IFDEF FPC}{$PUSH}{$ENDIF}{$WARNINGS OFF}
@@ -328,10 +322,9 @@ begin
   CheckEquals('{00010203-0405-0607-0809-0A0B0C0D0E0F}', TEST_GUID.ToString);
 end;
 
-{$IFNDEF FPC}
 procedure TTestTGuidHelper.TestEmpty;
 begin
-  CheckTrue(IsEqualGUID(TEST_GUID_EMPTY, TGUID.Empty));
+  CheckTrue(IsEqualGUID(GUID_NULL, TGUID.Empty));
 end;
 
 procedure TTestTGuidHelper.TestEqual;
@@ -344,7 +337,6 @@ begin
   CheckFalse(TEST_GUID <> CopyGuid);
   CheckFalse(TEST_GUID = GUID_NULL);
 end;
-{$ENDIF !FPC}
 
 initialization
   RegisterTest('System.SysUtils', TTestTGuidHelper.Suite);

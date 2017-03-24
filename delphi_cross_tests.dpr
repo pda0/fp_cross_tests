@@ -11,7 +11,7 @@
  **********************************************************************}
 program delphi_cross_tests;
 
-{$I delphi.inc}
+{$IFDEF FPC}{$I fpc.inc}{$ELSE}{$I delphi.inc}{$ENDIF}
 {$IFDEF DELPHI_XE4_PLUS}{$LEGACYIFEND ON}{$ENDIF}
 
 {$IFDEF CONSOLE_TESTRUNNER}
@@ -20,11 +20,34 @@ program delphi_cross_tests;
 
 uses
   DUnitTestRunner,
-  Test.SysUtils.TGuidHelper in 'src\test.sysutils.tguidhelper.pas';
+  System.SysConst,
+  Test.SysUtils.TGuidHelper in 'src\Test.SysUtils.TGuidHelper.pas',
+  Test.SysUtils.TUnicodeStringBuilder in 'src\Test.SysUtils.TUnicodeStringBuilder.pas',
+  Test.TFloatHelper in 'src\Test.TFloatHelper.pas',
+  Test.SysUtils.TSingleHelper in 'src\Test.SysUtils.TSingleHelper.pas',
+  Test.SysUtils.TDoubleHelper in 'src\Test.SysUtils.TDoubleHelper.pas',
+  Test.SysUtils.TExtendedHelper in 'src\Test.SysUtils.TExtendedHelper.pas';
 
 {$R *.RES}
 
 begin
+  (*
+  Test.SysUtils.TByteHelper
+  Test.SysUtils.TShortIntHelper
+  Test.SysUtils.TWordHelper
+  Test.SysUtils.TCardinalHelper
+  Test.SysUtils.TIntegerHelper
+  Test.SysUtils.TInt64Helper
+  Test.SysUtils.TQWordHelper
+  Test.SysUtils.TNativeIntHelper
+  Test.SysUtils.TNativeUIntHelper
+  Test.SysUtils.TBooleanHelper
+  Test.SysUtils.TByteBoolHelper
+  Test.SysUtils.TWordBoolHelper
+  Test.SysUtils.TLongBoolHelper
+  + Generics.Collections
+  *)
+
   DUnitTestRunner.RunRegisteredTests;
 end.
 
