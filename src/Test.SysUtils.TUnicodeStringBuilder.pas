@@ -202,10 +202,13 @@ begin
 
   { Fail due Delphi bug RSP-17143
     TODO: Add new test for #0. All code beyound #0 must not be added. }
+  {$IF DEFINED(FPC) OR DEFINED(DELPHI_TOKYO_PLUS)}
+  { Fail in Delphi 10.1 Berlin due https://quality.embarcadero.com/browse/RSP-17143 }
   SetLength(Chars, 0);
   FStringBuilder.Clear;
   FStringBuilder.Append(Chars);
   CheckEquals('', FStringBuilder.ToString);
+  {$IFEND}
 
   SetLength(Chars, 3);
   Chars[0] := WideChar('A');

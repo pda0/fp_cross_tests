@@ -2710,17 +2710,17 @@ begin
   CheckEquals('10', UpperCase(Extended.Parse('10').ToString(TFormatSettings.Invariant)));
 
   {$IFDEF CPUEXTENDED}
-  CheckEquals('2.4E310', UpperCase(Extended.Parse('2' + FormatSettings.DecimalSeparator + '4e310').ToString(TFormatSettings.Invariant)));
-  CheckEquals('2.4E310', UpperCase(Extended.Parse('2' + FormatSettings.DecimalSeparator + '4E310').ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+310', UpperCase(Extended.Parse('2' + FormatSettings.DecimalSeparator + '4e310').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+310', UpperCase(Extended.Parse('2' + FormatSettings.DecimalSeparator + '4E310').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
-  CheckEquals('-2.4E-310', UpperCase(Extended.Parse('-2' + FormatSettings.DecimalSeparator + '4e-310').ToString(TFormatSettings.Invariant)));
-  CheckEquals('-2.4E-310', UpperCase(Extended.Parse('-2' + FormatSettings.DecimalSeparator + '4E-310').ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-310', UpperCase(Extended.Parse('-2' + FormatSettings.DecimalSeparator + '4e-310').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-310', UpperCase(Extended.Parse('-2' + FormatSettings.DecimalSeparator + '4E-310').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   {$ELSE}
-  CheckEquals('2.4E68', UpperCase(Extended.Parse('2' + FormatSettings.DecimalSeparator + '4e68').ToString(TFormatSettings.Invariant)));
-  CheckEquals('2.4E68', UpperCase(Extended.Parse('2' + FormatSettings.DecimalSeparator + '4E68').ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+68', UpperCase(Extended.Parse('2' + FormatSettings.DecimalSeparator + '4e68').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+68', UpperCase(Extended.Parse('2' + FormatSettings.DecimalSeparator + '4E68').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
-  CheckEquals('-2.4E-68', UpperCase(Extended.Parse('-2' + FormatSettings.DecimalSeparator + '4e-68').ToString(TFormatSettings.Invariant)));
-  CheckEquals('-2.4E-68', UpperCase(Extended.Parse('-2' + FormatSettings.DecimalSeparator + '4E-68').ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-68', UpperCase(Extended.Parse('-2' + FormatSettings.DecimalSeparator + '4e-68').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-68', UpperCase(Extended.Parse('-2' + FormatSettings.DecimalSeparator + '4E-68').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   {$ENDIF CPUEXTENDED}
 
   CheckEquals('-1.75', UpperCase(Extended.Parse('-1' + FormatSettings.DecimalSeparator + '75').ToString(TFormatSettings.Invariant)));
@@ -2800,17 +2800,17 @@ begin
   CheckEquals('10', UpperCase(Extended.Parse('10', LocalFormat).ToString(TFormatSettings.Invariant)));
 
   {$IFDEF CPUEXTENDED}
-  CheckEquals('2.4E310', UpperCase(Extended.Parse('2;4e310', LocalFormat).ToString(TFormatSettings.Invariant)));
-  CheckEquals('2.4E310', UpperCase(Extended.Parse('2;4E310', LocalFormat).ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+310', UpperCase(Extended.Parse('2;4e310', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+310', UpperCase(Extended.Parse('2;4E310', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
-  CheckEquals('-2.4E-310', UpperCase(Extended.Parse('-2;4e-310', LocalFormat).ToString(TFormatSettings.Invariant)));
-  CheckEquals('-2.4E-310', UpperCase(Extended.Parse('-2;4E-310', LocalFormat).ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-310', UpperCase(Extended.Parse('-2;4e-310', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-310', UpperCase(Extended.Parse('-2;4E-310', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   {$ELSE}
-  CheckEquals('2.4E68', UpperCase(Extended.Parse('2;4e68', LocalFormat).ToString(TFormatSettings.Invariant)));
-  CheckEquals('2.4E68', UpperCase(Extended.Parse('2;4E68', LocalFormat).ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+68', UpperCase(Extended.Parse('2;4e68', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+68', UpperCase(Extended.Parse('2;4E68', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
-  CheckEquals('-2.4E-68', UpperCase(Extended.Parse('-2;4e-68', LocalFormat).ToString(TFormatSettings.Invariant)));
-  CheckEquals('-2.4E-68', UpperCase(Extended.Parse('-2;4E-68', LocalFormat).ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-68', UpperCase(Extended.Parse('-2;4e-68', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-68', UpperCase(Extended.Parse('-2;4E-68', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   {$ENDIF CPUEXTENDED}
 
   CheckEquals('-1.75', UpperCase(Extended.Parse('-1;75', LocalFormat).ToString(TFormatSettings.Invariant)));
@@ -2884,24 +2884,24 @@ begin
 
   {$IFDEF CPUEXTENDED}
   CheckTrue(Extended.TryParse('2' + FormatSettings.DecimalSeparator + '4e310', Value));
-  CheckEquals('2.4E310', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+310', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Extended.TryParse('2' + FormatSettings.DecimalSeparator + '4E310', Value));
-  CheckEquals('2.4E310', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+310', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckTrue(Extended.TryParse('-2' + FormatSettings.DecimalSeparator + '4e-310', Value));
-  CheckEquals('-2.4E-310', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-310', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Extended.TryParse('-2' + FormatSettings.DecimalSeparator + '4E-310', Value));
-  CheckEquals('-2.4E-310', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-310', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   {$ELSE}
   CheckTrue(Extended.TryParse('2' + FormatSettings.DecimalSeparator + '4e68', Value));
-  CheckEquals('2.4E68', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+68', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Extended.TryParse('2' + FormatSettings.DecimalSeparator + '4E68', Value));
-  CheckEquals('2.4E68', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+68', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckTrue(Extended.TryParse('-2' + FormatSettings.DecimalSeparator + '4e-68', Value));
-  CheckEquals('-2.4E-68', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-68', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Extended.TryParse('-2' + FormatSettings.DecimalSeparator + '4E-68', Value));
-  CheckEquals('-2.4E-68', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-68', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   {$ENDIF CPUEXTENDED}
 
   CheckTrue(Extended.TryParse('-1' + FormatSettings.DecimalSeparator + '75', Value));
@@ -2958,24 +2958,24 @@ begin
 
   {$IFDEF CPUEXTENDED}
   CheckTrue(Extended.TryParse('2;4e310', Value, LocalFormat));
-  CheckEquals('2.4E310', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+310', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Extended.TryParse('2;4E310', Value, LocalFormat));
-  CheckEquals('2.4E310', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+310', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckTrue(Extended.TryParse('-2;4e-310', Value, LocalFormat));
-  CheckEquals('-2.4E-310', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-310', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Extended.TryParse('-2;4E-310', Value, LocalFormat));
-  CheckEquals('-2.4E-310', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-310', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   {$ELSE}
   CheckTrue(Extended.TryParse('2;4e68', Value, LocalFormat));
-  CheckEquals('2.4E68', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+68', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Extended.TryParse('2;4E68', Value, LocalFormat));
-  CheckEquals('2.4E68', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.400000E+68', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckTrue(Extended.TryParse('-2;4e-68', Value, LocalFormat));
-  CheckEquals('-2.4E-68', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-68', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Extended.TryParse('-2;4E-68', Value, LocalFormat));
-  CheckEquals('-2.4E-68', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.400000E-68', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   {$ENDIF CPUEXTENDED}
 
   CheckTrue(Extended.TryParse('-1;75', Value, LocalFormat));

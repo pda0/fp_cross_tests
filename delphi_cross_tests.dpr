@@ -26,19 +26,20 @@ uses
   Test.TFloatHelper in 'src\Test.TFloatHelper.pas',
   Test.SysUtils.TSingleHelper in 'src\Test.SysUtils.TSingleHelper.pas',
   Test.SysUtils.TDoubleHelper in 'src\Test.SysUtils.TDoubleHelper.pas',
-  Test.SysUtils.TExtendedHelper in 'src\Test.SysUtils.TExtendedHelper.pas';
+  Test.SysUtils.TExtendedHelper in 'src\Test.SysUtils.TExtendedHelper.pas',
+  Test.SysUtils.TByteHelper in 'src\Test.SysUtils.TByteHelper.pas',
+  Test.SysUtils.TShortIntHelper in 'src\Test.SysUtils.TShortIntHelper.pas',
+  Test.SysUtils.TWordHelper in 'src\Test.SysUtils.TWordHelper.pas',
+  Test.SysUtils.TSmallIntHelper in 'src\Test.SysUtils.TSmallIntHelper.pas',
+  Test.SysUtils.TCardinalHelper in 'src\Test.SysUtils.TCardinalHelper.pas',
+  Test.SysUtils.TIntegerHelper in 'src\Test.SysUtils.TIntegerHelper.pas',
+  Test.SysUtils.TUInt64Helper in 'src\Test.SysUtils.TUInt64Helper.pas',
+  Test.SysUtils.TInt64Helper in 'src\Test.SysUtils.TInt64Helper.pas';
 
 {$R *.RES}
 
 begin
   (*
-  Test.SysUtils.TByteHelper
-  Test.SysUtils.TShortIntHelper
-  Test.SysUtils.TWordHelper
-  Test.SysUtils.TCardinalHelper
-  Test.SysUtils.TIntegerHelper
-  Test.SysUtils.TInt64Helper
-  Test.SysUtils.TQWordHelper
   Test.SysUtils.TNativeIntHelper
   Test.SysUtils.TNativeUIntHelper
   Test.SysUtils.TBooleanHelper

@@ -5,7 +5,7 @@
         <FrameworkType>FMX</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win64</Platform>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>3</TargetedPlatforms>
         <AppType>Console</AppType>
         <MainSource>delphi_cross_tests.dpr</MainSource>
@@ -93,6 +93,14 @@
         <DCCReference Include="src\Test.SysUtils.TSingleHelper.pas"/>
         <DCCReference Include="src\Test.SysUtils.TDoubleHelper.pas"/>
         <DCCReference Include="src\Test.SysUtils.TExtendedHelper.pas"/>
+        <DCCReference Include="src\Test.SysUtils.TByteHelper.pas"/>
+        <DCCReference Include="src\Test.SysUtils.TShortIntHelper.pas"/>
+        <DCCReference Include="src\Test.SysUtils.TWordHelper.pas"/>
+        <DCCReference Include="src\Test.SysUtils.TSmallIntHelper.pas"/>
+        <DCCReference Include="src\Test.SysUtils.TCardinalHelper.pas"/>
+        <DCCReference Include="src\Test.SysUtils.TIntegerHelper.pas"/>
+        <DCCReference Include="src\Test.SysUtils.TUInt64Helper.pas"/>
+        <DCCReference Include="src\Test.SysUtils.TInt64Helper.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -59,7 +59,7 @@ type
     class function MakeExtended(a, b, c, d, e, f, g, h: Byte): TExtendedArray; static;
       {$IFEND}
     {$IFEND}
-  {$ENDIF}
+  {$ENDIF RUN_TESTS}
   protected
   {$IFDEF FPC}
     class procedure CheckEquals(Expected, Actual: Int64; msg: string = ''); overload;
@@ -156,6 +156,7 @@ begin
   {$ENDIF}
 end;
 {$IFEND}
+{$ENDIF RUN_TESTS}
 
 {$IFDEF FPC}
 class procedure TFloatHelper.CheckEquals(Expected, Actual: Int64; msg: string = '');
@@ -173,6 +174,5 @@ begin
   Fail(msg);
 end;
 {$ENDIF FPC}
-{$ENDIF RUN_TESTS}
 
 end.

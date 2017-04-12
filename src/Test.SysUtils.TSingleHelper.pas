@@ -1664,11 +1664,11 @@ begin
   CheckEquals('0', UpperCase(Single.Parse('0').ToString(TFormatSettings.Invariant)));
   CheckEquals('10', UpperCase(Single.Parse('10').ToString(TFormatSettings.Invariant)));
 
-  CheckEquals('2.8E32', UpperCase(Single.Parse('2' + FormatSettings.DecimalSeparator + '8e32').ToString(TFormatSettings.Invariant)));
-  CheckEquals('2.8E32', UpperCase(Single.Parse('2' + FormatSettings.DecimalSeparator + '8E32').ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.800000E+32', UpperCase(Single.Parse('2' + FormatSettings.DecimalSeparator + '8e32').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('2.800000E+32', UpperCase(Single.Parse('2' + FormatSettings.DecimalSeparator + '8E32').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
-  CheckEquals('-2.8E-32', UpperCase(Single.Parse('-2' + FormatSettings.DecimalSeparator + '8e-32').ToString(TFormatSettings.Invariant)));
-  CheckEquals('-2.8E-32', UpperCase(Single.Parse('-2' + FormatSettings.DecimalSeparator + '8E-32').ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.800000E-32', UpperCase(Single.Parse('-2' + FormatSettings.DecimalSeparator + '8e-32').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('-2.800000E-32', UpperCase(Single.Parse('-2' + FormatSettings.DecimalSeparator + '8E-32').ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckEquals('-1.75', UpperCase(Single.Parse('-1' + FormatSettings.DecimalSeparator + '75').ToString(TFormatSettings.Invariant)));
   CheckEquals('1.75', UpperCase(Single.Parse('1' + FormatSettings.DecimalSeparator + '75').ToString(TFormatSettings.Invariant)));
@@ -1746,11 +1746,11 @@ begin
   CheckEquals('0', UpperCase(Single.Parse('0', LocalFormat).ToString(TFormatSettings.Invariant)));
   CheckEquals('10', UpperCase(Single.Parse('10', LocalFormat).ToString(TFormatSettings.Invariant)));
 
-  CheckEquals('2.8E32', UpperCase(Single.Parse('2;8e32', LocalFormat).ToString(TFormatSettings.Invariant)));
-  CheckEquals('2.8E32', UpperCase(Single.Parse('2;8E32', LocalFormat).ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.800000E+32', UpperCase(Single.Parse('2;8e32', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('2.800000E+32', UpperCase(Single.Parse('2;8E32', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
-  CheckEquals('-2.8E-32', UpperCase(Single.Parse('-2;8e-32', LocalFormat).ToString(TFormatSettings.Invariant)));
-  CheckEquals('-2.8E-32', UpperCase(Single.Parse('-2;8E-32', LocalFormat).ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.800000E-32', UpperCase(Single.Parse('-2;8e-32', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
+  CheckEquals('-2.800000E-32', UpperCase(Single.Parse('-2;8E-32', LocalFormat).ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckEquals('-1.75', UpperCase(Single.Parse('-1;75', LocalFormat).ToString(TFormatSettings.Invariant)));
   CheckEquals('1.75', UpperCase(Single.Parse('+1;75', LocalFormat).ToString(TFormatSettings.Invariant)));
@@ -1822,14 +1822,14 @@ begin
   CheckEquals('10', UpperCase(Value.ToString(TFormatSettings.Invariant)));
 
   CheckTrue(Single.TryParse('2' + FormatSettings.DecimalSeparator + '8e32', Value));
-  CheckEquals('2.8E32', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.800000E+32', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Single.TryParse('2' + FormatSettings.DecimalSeparator + '8E32', Value));
-  CheckEquals('2.8E32', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.800000E+32', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckTrue(Single.TryParse('-2' + FormatSettings.DecimalSeparator + '8e-32', Value));
-  CheckEquals('-2.8E-32', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.800000E-32', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Single.TryParse('-2' + FormatSettings.DecimalSeparator + '8E-32', Value));
-  CheckEquals('-2.8E-32', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.800000E-32', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckTrue(Single.TryParse('-1' + FormatSettings.DecimalSeparator + '75', Value));
   CheckEquals('-1.75', UpperCase(Value.ToString(TFormatSettings.Invariant)));
@@ -1884,14 +1884,14 @@ begin
   CheckEquals('10', UpperCase(Value.ToString(TFormatSettings.Invariant)));
 
   CheckTrue(Single.TryParse('2;8e32', Value, LocalFormat));
-  CheckEquals('2.8E32', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.800000E+32', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Single.TryParse('2;8E32', Value, LocalFormat));
-  CheckEquals('2.8E32', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('2.800000E+32', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckTrue(Single.TryParse('-2;8e-32', Value, LocalFormat));
-  CheckEquals('-2.8E-32', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.800000E-32', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
   CheckTrue(Single.TryParse('-2;8E-32', Value, LocalFormat));
-  CheckEquals('-2.8E-32', UpperCase(Value.ToString(TFormatSettings.Invariant)));
+  CheckEquals('-2.800000E-32', UpperCase(Value.ToString(ffExponent, 7, 2, TFormatSettings.Invariant)));
 
   CheckTrue(Single.TryParse('-1;75', Value, LocalFormat));
   CheckEquals('-1.75', UpperCase(Value.ToString(TFormatSettings.Invariant)));
